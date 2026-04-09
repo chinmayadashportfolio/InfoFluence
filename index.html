@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfoFluence™ — Ignite your data & AI fluency</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1e3a5f; --navy2:#243c62; --navy3:#1a3356;
+  --teal:#29b5c3; --teal2:#1f9aaa;
+  --green:#3cb371; --green2:#2e9960;
+  --orange:#e07535; --orange2:#c96025;
+  --amber:#e8a030; --blue-r:#4a90d9;
+  --white:#ffffff; --gray-bg:#f5f6f8; --gray-light:#eef0f3;
+  --border:#dde3ec; --text-h:#1e3a5f; --text-b:#5a6a80; --text-muted:#8a96a8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--text-h);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── LOGO ── */
+.logo{display:inline-flex;flex-direction:column;text-decoration:none;line-height:1}
+.logo-row{display:flex;align-items:center}
+.logo-pre,.logo-post{font-size:1.45rem;font-weight:800;color:var(--navy);letter-spacing:-.03em;line-height:1}
+.logo-tm{font-size:.55rem;font-weight:700;color:var(--navy);vertical-align:super;margin-left:1px}
+.logo-tag{font-size:.6rem;font-weight:400;color:var(--text-b);margin-top:2px}
+.logo svg.pw{width:20px;height:20px;margin:0 1px;flex-shrink:0}
+.logo-white .logo-pre,.logo-white .logo-post,.logo-white .logo-tm{color:#fff}
+.logo-white .logo-tag{color:rgba(255,255,255,.45)}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;background:var(--white);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(30,58,95,.07);min-height:58px}
+.nav-links{display:flex;align-items:center;gap:22px}
+.nav-link{font-size:.84rem;font-weight:500;color:var(--text-b);text-decoration:none;transition:color .2s}
+.nav-link:hover{color:var(--teal)}
+.btn-nav{background:var(--navy);color:#fff;padding:8px 18px;border-radius:6px;font-size:.84rem;font-weight:600;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s}
+.btn-nav:hover{background:var(--teal2)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:var(--gray-light);border-radius:6px}
+.hamburger span{display:block;width:20px;height:2px;background:var(--navy);border-radius:2px}
+@media(max-width:640px){.nav-links .nav-link{display:none}.hamburger{display:flex}}
+
+/* ── PROGRESS BAR ── NEW */
+.progress-bar{position:fixed;top:57px;left:0;right:0;z-index:499;height:3px;background:var(--gray-light)}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--green));width:0%;transition:width .1s linear}
+
+/* ── BUTTONS ── */
+.btn-gradient{display:inline-block;background:linear-gradient(135deg,var(--teal) 0%,var(--green) 100%);color:#fff;padding:13px 32px;border-radius:8px;font-size:.95rem;font-weight:600;border:none;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;transition:opacity .2s,transform .15s}
+.btn-gradient:hover{opacity:.9;transform:translateY(-1px)}
+.btn-navy{display:inline-block;background:var(--navy);color:#fff;padding:13px 28px;border-radius:8px;font-size:.95rem;font-weight:600;border:none;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;transition:background .2s,transform .15s}
+.btn-navy:hover{background:var(--teal2);transform:translateY(-1px)}
+.btn-outline{display:inline-block;background:transparent;color:var(--navy);padding:13px 28px;border-radius:8px;font-size:.95rem;font-weight:600;border:2px solid var(--navy);cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;transition:all .2s}
+.btn-outline:hover{background:var(--navy);color:#fff}
+
+/* ── LAYOUT ── */
+.sec{padding:60px 20px}
+.w{max-width:860px;margin:0 auto}
+.w-sm{max-width:640px;margin:0 auto}
+.w-lg{max-width:960px;margin:0 auto}
+.center{text-align:center}
+
+/* ── TYPE ── */
+.eyebrow{display:block;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.eyebrow-teal{color:var(--teal)}
+.eyebrow-green{color:var(--green)}
+h2.ht{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;color:var(--text-h);line-height:1.2;margin-bottom:14px}
+h2.ht .teal{color:var(--teal)}
+h2.ht .green{color:var(--green)}
+h2.ht .orange{color:var(--orange)}
+.body-t{font-size:1rem;color:var(--text-b);line-height:1.75}
+.body-white{color:rgba(255,255,255,.78)}
+
+/* ─────────────────────────────────
+   SECTION 1 — HERO  (from v3)
+   ───────────────────────────────── */
+.hero{padding:100px 24px 60px;background:var(--white);text-align:center}
+/* eyebrow pill */
+.hero-eyebrow{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);background:rgba(41,181,195,.1);padding:5px 14px;border-radius:20px;margin-bottom:20px}
+/* gradient headline — exact v3 style */
+.hero h1{font-size:clamp(2rem,6vw,3.4rem);font-weight:900;line-height:1.12;margin-bottom:18px;background:linear-gradient(135deg,var(--teal) 0%,var(--green) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.1rem;color:var(--text-b);max-width:560px;margin:0 auto 32px;line-height:1.7}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+/* trust dots row — exact v3 */
+.hero-trust{display:flex;justify-content:center;gap:28px;margin-top:40px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text-b);font-weight:500}
+.trust-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.td-teal{background:var(--teal)}.td-orange{background:var(--orange)}.td-green{background:var(--green)}
+/* trust strip used in improved flow — keep for responsive */
+.trust-strip{display:flex;justify-content:center;align-items:center;gap:0;flex-wrap:wrap;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 0;margin-top:40px}
+.ts-item{display:flex;align-items:center;gap:8px;padding:0 24px;font-size:.82rem;font-weight:600;color:var(--text-b)}
+.ts-item:not(:last-child){border-right:1px solid var(--border)}
+.ts-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.ts-t{background:var(--teal)}.ts-o{background:var(--orange)}.ts-g{background:var(--green)}
+
+/* ─────────────────────────────────
+   SECTION 2 — PAIN (self-recognition)
+   ───────────────────────────────── */
+.pain-sec{background:var(--gray-bg)}
+.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.pain-list{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:10px}
+.pain-list li{display:flex;align-items:flex-start;gap:10px;font-size:.93rem;color:var(--text-b);padding:12px 14px;border-radius:8px;background:var(--white);border:1px solid var(--border);border-left:3px solid var(--border);transition:border-left-color .2s,box-shadow .2s}
+.pain-list li:hover{border-left-color:var(--teal);box-shadow:0 2px 8px rgba(41,181,195,.1)}
+.pa{color:var(--teal);font-weight:700;flex-shrink:0}
+.resolve-card{background:var(--navy);border-radius:14px;padding:30px;color:#fff}
+.resolve-card h3{font-size:1.2rem;font-weight:800;font-style:italic;margin-bottom:14px;color:#fff}
+.resolve-card p{font-size:.9rem;color:rgba(255,255,255,.75);line-height:1.75}
+.resolve-card .hi{color:var(--teal);font-weight:600;font-style:normal}
+
+/* ─────────────────────────────────
+   SECTION 3 — ORIGIN / DIFFERENCE
+   ───────────────────────────────── */
+.diff-sec{background:var(--white)}
+.diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.diff-card{background:var(--navy);border-radius:14px;padding:30px;color:#fff}
+.diff-card-h{font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:22px}
+.diff-label{font-size:.88rem;font-weight:700;color:var(--orange);margin-bottom:6px}
+.diff-text{font-size:.9rem;color:rgba(255,255,255,.78);line-height:1.65}
+.diff-hr{border:none;border-top:1px solid rgba(255,255,255,.15);margin:18px 0}
+
+/* ─────────────────────────────────
+   SECTION 4 — IMPACT STATS  ← MOVED UP
+   was buried at section 8; now after origin
+   to build credibility before product pitch
+   ───────────────────────────────── */
+.impact-sec{background:var(--navy);text-align:center;color:#fff}
+.impact-stats{display:flex;justify-content:center;gap:0;flex-wrap:wrap;margin:40px 0;border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden}
+.imp-stat{flex:1;min-width:160px;padding:32px 20px;border-right:1px solid rgba(255,255,255,.1)}
+.imp-stat:last-child{border-right:none}
+.imp-circle{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.2rem;color:var(--green)}
+.imp-num{font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+.imp-label{font-size:.82rem;font-weight:700;color:var(--green);margin-bottom:6px}
+.imp-desc{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.55}
+/* stat mini row */
+.stat-mini{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:32px}
+.sm-item{text-align:center}
+.sm-num{font-size:2rem;font-weight:900;color:#fff;line-height:1}
+.sm-label{font-size:.8rem;font-weight:700;color:var(--green);margin-top:3px}
+
+/* ─────────────────────────────────
+   SECTION 5 — REAL FRAMEWORK DIAGRAM
+   ───────────────────────────────── */
+.real-sec{background:var(--white);text-align:center}
+.real-diag{position:relative;width:300px;height:300px;margin:36px auto 28px}
+.real-diag svg{width:100%;height:100%}
+.real-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:116px}
+.real-center-logo{display:flex;align-items:center;justify-content:center;gap:1px;font-size:.64rem;font-weight:800;color:var(--navy);line-height:1;margin-bottom:3px}
+.real-word{font-size:1.55rem;font-weight:900;color:var(--navy);line-height:1}
+
+/* ─────────────────────────────────
+   SECTION 6 — REAL CARDS (R E A L)
+   ───────────────────────────────── */
+.real-cards-sec{background:var(--gray-bg)}
+.real-card{background:var(--white);border-radius:14px;padding:22px 20px;border:1px solid var(--border);box-shadow:0 2px 8px rgba(30,58,95,.06);margin-bottom:16px;display:flex;gap:16px;align-items:flex-start;position:relative;transition:box-shadow .2s,transform .2s}
+.real-card:hover{box-shadow:0 6px 24px rgba(30,58,95,.1);transform:translateY(-2px)}
+.real-card:last-child{margin-bottom:0}
+.rc-circle{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:800;color:#fff;flex-shrink:0}
+.rc-blue{background:var(--blue-r)}.rc-orange{background:var(--orange)}.rc-green{background:var(--green)}.rc-amber{background:var(--amber)}
+.rc-title{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.3}
+.rc-desc{font-size:.88rem;color:var(--text-b);line-height:1.65}
+.rc-icon{position:absolute;top:22px;right:20px;font-size:1rem;color:var(--text-muted)}
+
+/* ─────────────────────────────────
+   SECTION 7 — FEATURES / HOW IT HELPS
+   ───────────────────────────────── */
+.features-sec{background:var(--white);text-align:center}
+.feat-list{display:flex;flex-direction:column;gap:52px;margin-top:44px}
+.feat-circle{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.fc-teal{background:var(--teal)}.fc-orange{background:var(--orange)}.fc-green{background:var(--green)}
+.feat-h{font-size:1.15rem;font-weight:800;color:var(--navy);margin-bottom:10px}
+.feat-p{font-size:.93rem;color:var(--text-b);line-height:1.75;max-width:520px;margin:0 auto}
+
+/* ─────────────────────────────────
+   SECTION 8 — MID-PAGE CTA BANNER ← NEW
+   ───────────────────────────────── */
+.mid-cta{background:linear-gradient(135deg,var(--teal) 0%,var(--green) 100%);padding:48px 24px;text-align:center}
+.mid-cta h3{font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:#fff;margin-bottom:10px}
+.mid-cta p{font-size:.95rem;color:rgba(255,255,255,.85);margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto}
+.btn-white{display:inline-block;background:#fff;color:var(--navy);padding:13px 32px;border-radius:8px;font-size:.95rem;font-weight:700;border:none;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;transition:all .2s}
+.btn-white:hover{background:var(--navy);color:#fff}
+.mid-cta-note{font-size:.76rem;color:rgba(255,255,255,.7);margin-top:10px}
+
+/* ─────────────────────────────────
+   SECTION 9 — 6D JOURNEY
+   ───────────────────────────────── */
+.journey-sec{background:var(--gray-bg)}
+.j-cards{display:flex;flex-direction:column;gap:14px;margin-top:32px}
+.j-card{background:var(--white);border-radius:14px;padding:22px 20px;border:1px solid var(--border);box-shadow:0 2px 8px rgba(30,58,95,.05);display:flex;gap:16px;align-items:flex-start;position:relative;transition:box-shadow .2s,border-color .2s}
+.j-card:hover{box-shadow:0 6px 20px rgba(30,58,95,.09);border-color:var(--teal)}
+.jc-num{position:absolute;top:18px;right:20px;font-size:1.1rem;font-weight:700;color:var(--text-muted);opacity:.45}
+.jc-circle{width:54px;height:54px;border-radius:50%;background:rgba(74,144,217,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem}
+.jc-title{font-size:.95rem;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.jc-sub{font-size:.88rem;color:var(--text-b);margin-bottom:5px}
+.jc-quote{font-size:.82rem;color:var(--text-muted);font-style:italic}
+.j-cta-card{background:var(--navy);border-radius:14px;padding:28px 24px;color:#fff;margin-top:20px}
+.j-cta-card h3{font-size:1.15rem;font-weight:800;color:#fff;margin-bottom:10px}
+.j-cta-card p{font-size:.9rem;color:rgba(255,255,255,.75);margin-bottom:20px;line-height:1.65}
+
+/* ─────────────────────────────────
+   SECTION 10 — OUTCOMES + CASE STUDY
+   ───────────────────────────────── */
+.outcomes-sec{background:var(--navy);color:#fff}
+.outcomes-title{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800;color:#fff;line-height:1.35;margin-bottom:20px}
+.outcomes-title span{color:#fff;font-weight:400}
+.bullet-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+.bullet-list li{display:flex;align-items:flex-start;gap:12px;font-size:.92rem;color:rgba(255,255,255,.82);line-height:1.55}
+.bl-dot{width:9px;height:9px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px}
+.stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+.sp-card{background:rgba(255,255,255,.07);border-radius:12px;padding:24px;text-align:center}
+.sp-num{font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+.sp-label{font-size:.8rem;font-weight:700;color:var(--green);margin-bottom:6px}
+.sp-desc{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5}
+.insight-card{background:rgba(255,255,255,.08);border-radius:14px;padding:28px}
+.insight-label{font-size:.78rem;font-weight:700;color:var(--green);margin-bottom:10px;text-transform:uppercase;letter-spacing:.08em}
+.insight-quote{font-size:.92rem;color:rgba(255,255,255,.85);font-style:italic;line-height:1.7;margin-bottom:10px}
+.insight-attr{font-size:.76rem;color:rgba(255,255,255,.4)}
+
+/* ─────────────────────────────────
+   SECTION 11 — TESTIMONIALS
+   ───────────────────────────────── */
+.testi-sec{background:var(--navy);text-align:center;color:#fff}
+.testi-cards{display:flex;flex-direction:column;gap:14px;margin-top:32px}
+.testi-card{background:var(--white);border-radius:14px;padding:24px;text-align:left}
+.stars{display:flex;gap:3px;margin-bottom:10px}
+.star-icon{color:var(--orange);font-size:1rem}
+.quote-mark{font-size:2rem;font-weight:900;color:var(--border);line-height:.8;margin-bottom:10px;font-family:Georgia,serif}
+.testi-text{font-size:.9rem;color:var(--text-b);line-height:1.7;font-style:italic}
+.join-card{background:var(--gray-light);border-radius:14px;padding:28px;text-align:center;margin-top:14px}
+.join-card h3{font-size:1.2rem;font-weight:800;color:var(--navy);margin-bottom:10px}
+.join-card p{font-size:.9rem;color:var(--text-b);line-height:1.65;margin-bottom:22px}
+
+/* ─────────────────────────────────
+   SECTION 12 — NEWSLETTER
+   ───────────────────────────────── */
+.news-sec{background:var(--navy2);text-align:center;padding:60px 20px}
+.news-sec h2{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;color:#fff;line-height:1.25;margin-bottom:16px}
+.news-sec h2 .orange{color:var(--orange)}
+.news-sec h2 .teal-g{background:linear-gradient(135deg,var(--teal),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.news-sub{font-size:.95rem;color:rgba(255,255,255,.72);max-width:520px;margin:0 auto 28px;line-height:1.7}
+.news-features{display:flex;flex-direction:column;gap:32px;margin-top:40px}
+.nf-circle{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--green));display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.2rem;color:#fff}
+.nf-h{font-size:.93rem;font-weight:700;color:#fff;margin-bottom:4px}
+.nf-p{font-size:.82rem;color:rgba(255,255,255,.58);line-height:1.55}
+
+/* ─────────────────────────────────
+   FOOTER
+   ───────────────────────────────── */
+.footer-main{background:var(--navy3);padding:48px 24px 32px;color:#fff}
+.footer-logo-block{text-align:center;margin-bottom:8px}
+.footer-tagline{font-size:.9rem;color:rgba(255,255,255,.62);margin:10px auto 8px;text-align:center;line-height:1.7;max-width:520px}
+.footer-email{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.88rem;color:rgba(255,255,255,.65);margin-bottom:36px}
+.footer-nav{display:flex;flex-direction:column;gap:28px;margin-bottom:36px}
+.fn-heading{font-size:.82rem;font-weight:700;color:var(--green);margin-bottom:10px;letter-spacing:.02em;text-align:center}
+.fn-links{display:flex;flex-direction:column;gap:8px}
+.fn-links a{font-size:.86rem;color:rgba(255,255,255,.65);text-decoration:none;transition:color .2s;text-align:center}
+.fn-links a:hover{color:var(--teal)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;text-align:center}
+.footer-copy{font-size:.78rem;color:rgba(255,255,255,.35);margin-bottom:12px}
+.footer-social{display:flex;justify-content:center;gap:18px;margin-bottom:14px}
+.footer-social a{color:rgba(255,255,255,.45);text-decoration:none;font-size:.88rem;transition:color .2s}
+.footer-social a:hover{color:var(--teal)}
+.footer-legal{display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+.footer-legal a{font-size:.76rem;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}
+.footer-legal a:hover{color:var(--teal)}
+
+/* ─────────────────────────────────
+   BACK TO TOP BUTTON — NEW
+   ───────────────────────────────── */
+.btt{position:fixed;bottom:24px;right:20px;z-index:400;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;border:none;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(30,58,95,.25);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+.btt.show{opacity:1;pointer-events:all}
+.btt:hover{background:var(--teal);transform:translateY(-2px)}
+
+/* ─────────────────────────────────
+   MODAL
+   ───────────────────────────────── */
+.overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(15,28,50,.6);backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:16px}
+.overlay.open{display:flex}
+.modal{background:var(--white);border-radius:16px;width:100%;max-width:450px;max-height:92vh;overflow-y:auto;box-shadow:0 24px 64px rgba(10,20,40,.28);animation:mIn .22s ease}
+@keyframes mIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.modal-head{padding:24px 24px 0;display:flex;justify-content:space-between;align-items:center}
+.modal-head h2{font-size:1.15rem;font-weight:800;color:var(--navy)}
+.mx{background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--text-muted);transition:color .2s;padding:4px;font-family:'Inter',sans-serif}
+.mx:hover{color:var(--navy)}
+.modal-body{padding:18px 24px 26px}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:.82rem;font-weight:600;color:var(--navy);margin-bottom:4px}
+.fg label .req{color:var(--orange)}
+.fg input,.fg select,.fg textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Inter',sans-serif;font-size:.88rem;color:var(--text-h);background:#f9fafc;outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.fg input::placeholder,.fg select::placeholder,.fg textarea::placeholder{color:var(--text-muted)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--teal);background:#fff;box-shadow:0 0 0 3px rgba(41,181,195,.12)}
+.fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a96a8' stroke-width='1.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:34px;cursor:pointer}
+.fg textarea{resize:vertical;min-height:86px}
+.form-privacy{font-size:.74rem;color:var(--text-muted);margin-bottom:16px;line-height:1.5}
+.form-privacy a{color:var(--teal);text-decoration:none}
+.modal-btns{display:flex;gap:10px}
+.btn-cancel{flex:1;background:#fff;color:var(--text-b);padding:11px;border-radius:9px;font-size:.88rem;font-weight:600;border:1.5px solid var(--border);cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
+.btn-cancel:hover{border-color:var(--navy);color:var(--navy)}
+.btn-submit{flex:2;background:var(--navy);color:#fff;padding:11px;border-radius:9px;font-size:.88rem;font-weight:700;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s}
+.btn-submit:hover{background:var(--teal2)}
+.modal-ok{display:none;text-align:center;padding:44px 24px}
+.ok-icon{width:58px;height:58px;border-radius:50%;background:rgba(41,181,195,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:1.5rem;color:var(--teal)}
+.modal-ok h3{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:8px}
+.modal-ok p{font-size:.88rem;color:var(--text-b)}
+
+/* ─── SCROLL REVEAL ── */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+.rv.on{opacity:1;transform:none}
+.r1{transition-delay:.1s}.r2{transition-delay:.2s}.r3{transition-delay:.3s}
+
+/* ─── RESPONSIVE ── */
+@media(max-width:760px){
+  .pain-grid,.diff-grid{grid-template-columns:1fr}
+  .impact-stats{flex-direction:column}
+  .imp-stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}
+  .imp-stat:last-child{border-bottom:none}
+  .stat-pair{grid-template-columns:1fr}
+  .ts-item:not(:last-child){border-right:none;border-bottom:1px solid var(--border)}
+  .trust-strip{flex-direction:column;gap:0}
+  .hero-trust{gap:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MODAL ════════════════════════════ -->
+<div class="overlay" id="modal">
+  <div class="modal">
+    <div id="mForm">
+      <div class="modal-head">
+        <h2>Request Team Access</h2>
+        <button class="mx" id="mClose">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="fg"><label>Name <span class="req">*</span></label><input id="fN" type="text" placeholder="Your full name" autocomplete="name"></div>
+        <div class="fg"><label>Company <span class="req">*</span></label><input id="fC" type="text" placeholder="Your company name" autocomplete="organization"></div>
+        <div class="fg"><label>Title <span class="req">*</span></label><input id="fT" type="text" placeholder="Your job title"></div>
+        <div class="fg"><label>Work Email <span class="req">*</span></label><input id="fE" type="email" placeholder="your.email@company.com" autocomplete="email"></div>
+        <div class="fg">
+          <label>Number of Team Members <span class="req">*</span></label>
+          <select id="fS"><option value="" disabled selected>Select team size</option><option>1–10</option><option>11–50</option><option>51–200</option><option>201–500</option><option>500+</option></select>
+        </div>
+        <div class="fg"><label>What problem are you trying to solve? <span class="req">*</span></label><textarea id="fP" placeholder="Tell us about your team's challenges and how our platform can help..."></textarea></div>
+        <p class="form-privacy">By submitting this form, you agree to our <a href="#">Privacy Policy</a>.</p>
+        <div class="modal-btns">
+          <button class="btn-cancel" id="mCancel">Cancel</button>
+          <button class="btn-submit" id="mSubmit">Submit Request</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-ok" id="mOk">
+      <div class="ok-icon">✓</div>
+      <h3>Request Submitted!</h3>
+      <p>Our team will be in touch within 1 business day.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROGRESS BAR ════════════════════ -->
+<div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+
+<!-- ══ BACK TO TOP ══════════════════════ -->
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ══ NAV ══════════════════════════════ -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-row">
+      <span class="logo-pre">inf</span>
+      <svg class="pw" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M10,10 L10,1 A9,9 0,0,1 19,10 Z" fill="#e07535"/>
+        <path d="M10,10 L19,10 A9,9 0,0,1 10,19 Z" fill="#3cb371"/>
+        <path d="M10,10 L10,19 A9,9 0,0,1 1,10 Z" fill="#29b5c3"/>
+        <path d="M10,10 L1,10 A9,9 0,0,1 10,1 Z" fill="#4a90d9"/>
+        <circle cx="10" cy="10" r="3.2" fill="#1e3a5f"/>
+      </svg>
+      <span class="logo-post">luence</span><span class="logo-tm">™</span>
+    </div>
+    <span class="logo-tag">Ignite your data &amp; AI fluency</span>
+  </a>
+  <div class="nav-links">
+    <a href="#real" class="nav-link">REAL Framework</a>
+    <a href="#journey" class="nav-link">6D Journey</a>
+    <a href="#impact" class="nav-link">Impact</a>
+    <button class="btn-nav" onclick="openModal()">Request Access</button>
+    <div class="hamburger" id="burger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     SECTION 1 — HERO  (from v3 — exact)
+════════════════════════════════════════ -->
+<section class="hero" id="top">
+  <div class="w-sm">
+    <span class="hero-eyebrow rv">Digital Decision Intelligence</span>
+    <h1 class="rv r1">
+      Why AI feels easy for some people.<br>And frustrating for others.
+    </h1>
+    <p class="hero-sub rv r2">
+      InfoFluence™ reveals your natural way of thinking and making decisions in an AI-driven world — so you can move faster, with clarity and confidence.
+    </p>
+    <div class="hero-ctas rv r3">
+      <a href="#real" class="btn-gradient">Discover Your Profile</a>
+      <button class="btn-outline" onclick="openModal()">For Teams &amp; Organizations</button>
+    </div>
+    <div class="hero-trust rv">
+      <span class="trust-item"><span class="trust-dot td-teal"></span>Understand how you think</span>
+      <span class="trust-item"><span class="trust-dot td-orange"></span>Improve how you decide</span>
+      <span class="trust-item"><span class="trust-dot td-green"></span>Lead with confidence</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 2 — PAIN / SELF-RECOGNITION
+     "Does this sound like you?" — emotional hook
+════════════════════════════════════════ -->
+<section class="sec pain-sec" id="pain">
+  <div class="w">
+    <div class="pain-grid">
+      <div>
+        <span class="eyebrow rv">Does this sound familiar?</span>
+        <h2 class="ht rv r1">This might feel familiar</h2>
+        <p class="body-t rv r1" style="margin-bottom:0">You work with data and AI every day. But something still feels off.</p>
+        <ul class="pain-list rv r2">
+          <li><span class="pa">→</span>You question outputs others trust too quickly</li>
+          <li><span class="pa">→</span>You see the answer but struggle to align people</li>
+          <li><span class="pa">→</span>You move fast, but others feel you skipped steps</li>
+          <li><span class="pa">→</span>You analyze deeply, but decisions still stall</li>
+          <li><span class="pa">→</span>You love insights, but hate making them stick</li>
+        </ul>
+      </div>
+      <div class="rv r1">
+        <div class="resolve-card">
+          <h3>You're not doing it wrong.</h3>
+          <p>You're working in a way that doesn't match <span class="hi">how you naturally think.</span><br><br>InfoFluence™ makes that pattern visible — so you can work <em>with</em> it, not against it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 3 — ORIGIN / THE DIFFERENCE
+     Why InfoFluence exists — builds trust
+════════════════════════════════════════ -->
+<section class="sec diff-sec" id="origin">
+  <div class="w">
+    <div class="diff-grid">
+      <div class="rv">
+        <div class="diff-card">
+          <div class="diff-card-h">The Difference</div>
+          <div class="diff-label">Traditional Literacy</div>
+          <p class="diff-text">Understanding concepts and tools</p>
+          <hr class="diff-hr">
+          <div class="diff-label">InfoFluence™ Fluency</div>
+          <p class="diff-text">Applying understanding, adapting in real-time, and influencing others with confidence</p>
+        </div>
+      </div>
+      <div class="rv r1">
+        <span class="eyebrow">Why InfoFluence™ Exists</span>
+        <h2 class="ht">AI is everywhere.<br>Decision clarity <span class="teal">isn't.</span></h2>
+        <p class="body-t" style="margin-bottom:14px">Organizations invested heavily in AI tools — dashboards, pipelines, models. But the decisions made with them didn't improve at the same pace.</p>
+        <p class="body-t"><strong style="color:var(--navy)">Most people were never taught how to think with AI</strong> — only how to use it. That gap is where InfoFluence™ was created.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 4 — IMPACT STATS  ← MOVED UP
+     Credibility proof before product detail
+════════════════════════════════════════ -->
+<section class="sec impact-sec" id="impact">
+  <div class="w-sm">
+    <span class="eyebrow-green eyebrow rv center">Our Impact</span>
+    <h2 class="ht center rv r1" style="color:#fff">Our <span class="teal">Impact</span></h2>
+    <p class="body-t body-white center rv r2" style="max-width:500px;margin:0 auto 32px">Measurable transformation begins with Learning leaders, professionals, and organizations embracing data and AI fluency to lead with confidence and purpose.</p>
+    <div class="impact-stats rv r3">
+      <div class="imp-stat">
+        <div class="imp-circle">
+          <svg width="22" height="20" viewBox="0 0 22 20" fill="none"><circle cx="8" cy="5" r="3.5" stroke="currentColor" stroke-width="1.8"/><circle cx="14" cy="5" r="3.5" stroke="currentColor" stroke-width="1.8" opacity=".7"/><path d="M1 18c0-3.866 3.134-7 7-7" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8 11c3.866 0 7 3.134 7 7" stroke="currentColor" stroke-width="1.8" fill="none" opacity=".7"/></svg>
+        </div>
+        <div class="imp-num">10,000+</div>
+        <div class="imp-label">Leaders Inspired</div>
+        <p class="imp-desc">Executives engaging with InfoFluence™ insights and leadership frameworks</p>
+      </div>
+      <div class="imp-stat">
+        <div class="imp-circle">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.8" fill="none"/><circle cx="11" cy="11" r="5" stroke="currentColor" stroke-width="1.8" fill="none"/><circle cx="11" cy="11" r="1.8" fill="currentColor"/></svg>
+        </div>
+        <div class="imp-num">100+</div>
+        <div class="imp-label">Organizations Reached</div>
+        <p class="imp-desc">Global companies exploring the Learning Leader model for AI transformation</p>
+      </div>
+      <div class="imp-stat">
+        <div class="imp-circle">🏅</div>
+        <div class="imp-num">85%</div>
+        <div class="imp-label">Mindset Adoption</div>
+        <p class="imp-desc">Participants report increased confidence in AI and data understanding</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 5 — REAL FRAMEWORK DIAGRAM
+     The "what" — visual framework overview
+════════════════════════════════════════ -->
+<section class="sec real-sec" id="real">
+  <div class="w-sm">
+    <span class="eyebrow rv center">The Framework</span>
+    <h2 class="ht center rv r1">The <span class="teal">REAL</span> Framework</h2>
+    <p class="body-t center rv r2" style="max-width:460px;margin:0 auto">Our proprietary framework that transforms how leaders interact with data and AI through four key dimensions.</p>
+    <div class="real-diag rv">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="150" r="138" fill="none" stroke="#1e3a5f" stroke-width="2"/>
+        <path d="M150,150 L38,88 A138,138 0,0,1 150,12 Z" fill="#4a90d9"/>
+        <path d="M150,150 L150,12 A138,138 0,0,1 262,88 Z" fill="#e07535"/>
+        <path d="M150,150 L262,88 A138,138 0,0,1 262,212 Z" fill="#3cb371"/>
+        <path d="M150,150 L262,212 A138,138 0,0,1 38,212 Z" fill="#e8a030"/>
+        <path d="M150,150 L38,212 A138,138 0,0,1 38,88 Z" fill="#4a90d9"/>
+        <circle cx="150" cy="150" r="70" fill="#ffffff"/>
+        <text x="157" y="16" font-family="Inter,sans-serif" font-size="13" fill="#1e3a5f" opacity=".5">→</text>
+        <text x="283" y="158" font-family="Inter,sans-serif" font-size="13" fill="#1e3a5f" opacity=".5">↓</text>
+        <text x="140" y="294" font-family="Inter,sans-serif" font-size="13" fill="#1e3a5f" opacity=".5">←</text>
+        <text x="8" y="158" font-family="Inter,sans-serif" font-size="13" fill="#1e3a5f" opacity=".5">↑</text>
+        <text transform="translate(82,110) rotate(-38)" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="800" fill="white" letter-spacing="1">REFLECT</text>
+        <text transform="translate(218,110) rotate(38)" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="800" fill="white" letter-spacing="1">ENGAGE</text>
+        <text transform="translate(235,200) rotate(58)" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="800" fill="white" letter-spacing="0.5">ARTICULATE</text>
+        <text transform="translate(76,208) rotate(-38)" text-anchor="middle" font-family="Inter,sans-serif" font-size="15" font-weight="800" fill="white" letter-spacing="1">LEAD</text>
+      </svg>
+      <div class="real-center">
+        <div class="real-center-logo">
+          <span>inf</span>
+          <svg viewBox="0 0 10 10" width="10" height="10"><path d="M5,5 L5,1 A4,4 0,0,1 9,5 Z" fill="#e07535"/><path d="M5,5 L9,5 A4,4 0,0,1 5,9 Z" fill="#3cb371"/><path d="M5,5 L5,9 A4,4 0,0,1 1,5 Z" fill="#29b5c3"/><path d="M5,5 L1,5 A4,4 0,0,1 5,1 Z" fill="#4a90d9"/><circle cx="5" cy="5" r="1.6" fill="#1e3a5f"/></svg>
+          <span>luence™</span>
+        </div>
+        <div class="real-word">REAL</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 6 — REAL DETAIL CARDS (R E A L)
+     Deep dive into each dimension
+════════════════════════════════════════ -->
+<section class="sec real-cards-sec" id="real-detail">
+  <div class="w-sm">
+    <span class="eyebrow rv">What does REAL stand for?</span>
+    <h2 class="ht rv r1" style="font-size:clamp(1.4rem,3.5vw,2rem)">What does REAL stand for?</h2>
+    <p class="body-t rv r2" style="margin-bottom:28px">Each component represents a critical dimension of data and AI fluency that leaders must develop to drive meaningful transformation.</p>
+    <div class="real-card rv">
+      <div class="rc-circle rc-blue">R</div>
+      <div>
+        <div class="rc-title">Reflect – Mindset &amp; Awareness</div>
+        <p class="rc-desc">Building fluency starts with awareness. Individuals and teams must recognize how their assumptions, habits, and biases shape decisions in the AI era. Reflection builds confidence and adaptability for everyone, at every level.</p>
+      </div>
+      <span class="rc-icon">↺</span>
+    </div>
+    <div class="real-card rv r1">
+      <div class="rc-circle rc-orange">E</div>
+      <div>
+        <div class="rc-title">Engage – Skills &amp; Application</div>
+        <p class="rc-desc">Fluency means moving from theory to practice. It's about applying data, AI, and digital tools in daily work, solving problems, making better decisions, and unlocking team performance.</p>
+      </div>
+      <span class="rc-icon">👥</span>
+    </div>
+    <div class="real-card rv r2">
+      <div class="rc-circle rc-green">A</div>
+      <div>
+        <div class="rc-title">Articulate – Communication &amp; Influence</div>
+        <p class="rc-desc">AI success depends on clarity. This is the ability to communicate insights, decisions, and risks in simple, compelling ways, ensuring alignment across teams, functions, and stakeholders.</p>
+      </div>
+      <span class="rc-icon">💬</span>
+    </div>
+    <div class="real-card rv r3">
+      <div class="rc-circle rc-amber">L</div>
+      <div>
+        <div class="rc-title">Lead – Culture, Ethics &amp; Governance</div>
+        <p class="rc-desc">Leadership is not a title; it's a behavior. Everyone contributes to a culture of trust, ethical use of AI, and responsible governance, because AI transformation only works when shared across the organization.</p>
+      </div>
+      <span class="rc-icon">🎯</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 7 — FEATURES / HOW IT HELPS
+     3 concrete benefits with icons
+════════════════════════════════════════ -->
+<section class="sec features-sec" id="features">
+  <div class="w-sm">
+    <span class="eyebrow rv center">How it helps</span>
+    <h2 class="ht center rv r1"><span style="background:linear-gradient(135deg,var(--teal),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Collaborate, Adapt, and<br>Lead at the age of AI</span></h2>
+    <div class="feat-list">
+      <div class="rv">
+        <div class="feat-circle fc-teal">
+          <svg width="32" height="26" viewBox="0 0 32 26" fill="none"><circle cx="11" cy="7" r="5" fill="white"/><circle cx="21" cy="7" r="5" fill="white" opacity=".7"/><path d="M1 25c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="white" stroke-width="2.4" fill="none"/><path d="M21 15c4.418 0 8 3.582 8 8" stroke="white" stroke-width="2.4" fill="none" opacity=".7"/></svg>
+        </div>
+        <h3 class="feat-h">Fostering AI Confident, Aligned Teams</h3>
+        <p class="feat-p">Digital Leadership IQ strengthens leaders' ability to communicate across silos, build digital trust across differences, and collaborate with confidence. In a world where AI is accelerating change, collaboration becomes the foundation of resilience and performance.</p>
+      </div>
+      <div class="rv r1">
+        <div class="feat-circle fc-orange">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="12" stroke="white" stroke-width="2" fill="none"/><circle cx="15" cy="15" r="7" stroke="white" stroke-width="2" fill="none"/><circle cx="15" cy="15" r="2.5" fill="white"/></svg>
+        </div>
+        <h3 class="feat-h">Customized AI-Guided Development for Everyone</h3>
+        <p class="feat-p">One-size-fits-all training doesn't build AI fluency. Digital Leadership IQ, powered by the InfoFluence™ system, tailors diagnostics and development to individual context — meeting leaders and teams exactly where they are.</p>
+      </div>
+      <div class="rv r2">
+        <div class="feat-circle fc-green">
+          <svg width="30" height="26" viewBox="0 0 30 26" fill="none"><polyline points="2,24 9,13 16,17 26,4" stroke="white" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="4" r="2.2" fill="white"/></svg>
+        </div>
+        <h3 class="feat-h">Measurable Growth in AI Fluency</h3>
+        <p class="feat-p">Track real progress across teams. InfoFluence™ provides clear diagnostics and benchmarks so leaders and organizations can measure improvement in decision quality, AI confidence, and strategic impact.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 8 — MID-PAGE CTA BANNER  ← NEW
+     Captures interest before heavy content
+════════════════════════════════════════ -->
+<div class="mid-cta rv" id="mid-cta">
+  <div class="w-sm">
+    <h3>Ready to understand how your team thinks with AI?</h3>
+    <p>Join 10,000+ leaders already building data and AI fluency with InfoFluence™</p>
+    <button class="btn-white" onclick="openModal()">Request Team Access</button>
+    <p class="mid-cta-note">Free consultation · No commitment required</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 9 — 6D JOURNEY
+     The "how" — step by step process
+════════════════════════════════════════ -->
+<section class="sec journey-sec" id="journey">
+  <div class="w-sm">
+    <span class="eyebrow rv">The Process</span>
+    <h2 class="ht rv r1">The InfoFluence™ <span class="teal">6D Journey</span></h2>
+    <p class="body-t rv r2" style="margin-bottom:0;color:var(--text-muted)">From Awareness to Action</p>
+    <div class="j-cards">
+      <div class="j-card rv">
+        <div class="jc-num">01</div>
+        <div class="jc-circle">👁️</div>
+        <div>
+          <div class="jc-title">Discover</div>
+          <div class="jc-sub">Spark awareness and curiosity</div>
+          <div class="jc-quote">"This is about me — I never thought about AI this way."</div>
+        </div>
+      </div>
+      <div class="j-card rv r1">
+        <div class="jc-num">02</div>
+        <div class="jc-circle">🔍</div>
+        <div>
+          <div class="jc-title">Diagnose</div>
+          <div class="jc-sub">Reveal hidden patterns, strengths, and gaps</div>
+          <div class="jc-quote">"Now I see what's helping or holding me back."</div>
+        </div>
+      </div>
+      <div class="j-card rv r2">
+        <div class="jc-num">03</div>
+        <div class="jc-circle" style="font-size:.9rem;font-weight:700;color:var(--navy)">&#60;&#62;</div>
+        <div>
+          <div class="jc-title">Decode</div>
+          <div class="jc-sub">Human insight clarity</div>
+          <div class="jc-quote">"This explains how our team interacts with data and AI — and how we could shift."</div>
+        </div>
+      </div>
+      <div class="j-card rv">
+        <div class="jc-num">04</div>
+        <div class="jc-circle">🔧</div>
+        <div>
+          <div class="jc-title">Develop</div>
+          <div class="jc-sub">Activate capability through structured enablement</div>
+          <div class="jc-quote">"Now we're building real habits and confidence."</div>
+        </div>
+      </div>
+      <div class="j-card rv r1">
+        <div class="jc-num">05</div>
+        <div class="jc-circle">⭐</div>
+        <div>
+          <div class="jc-title">Demonstrate</div>
+          <div class="jc-sub">Show visible growth and culture change</div>
+          <div class="jc-quote">"Our mindset and language around data and AI have shifted. We're leading differently."</div>
+        </div>
+      </div>
+      <div class="j-card rv r2">
+        <div class="jc-num">06</div>
+        <div class="jc-circle">📤</div>
+        <div>
+          <div class="jc-title">Disseminate</div>
+          <div class="jc-sub">Scale transformation with internal champions</div>
+          <div class="jc-quote">"We've built a culture of fluency. It's contagious."</div>
+        </div>
+      </div>
+    </div>
+    <div class="j-cta-card rv">
+      <h3>Ready to Start Your Journey?</h3>
+      <p>Transform your organization's relationship with data and AI through our proven 6D methodology.</p>
+      <button class="btn-gradient" onclick="openModal()">Request Access for Your Group</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 10 — OUTCOMES + CASE STUDY
+     Proof of results — what participants gain
+════════════════════════════════════════ -->
+<section class="sec outcomes-sec" id="outcomes">
+  <div class="w-sm">
+    <span class="eyebrow-green eyebrow rv">Key Outcomes</span>
+    <div class="stat-pair rv r1">
+      <div class="sp-card">
+        <div class="sp-num">85%</div>
+        <div class="sp-label">Learning Mindset Adoption</div>
+        <p class="sp-desc">Early participants report increased confidence in AI and data</p>
+      </div>
+      <div class="sp-card">
+        <div class="sp-num">99%</div>
+        <div class="sp-label">Program Alignment</div>
+        <p class="sp-desc">Our approach resonates with organizational transformation priorities</p>
+      </div>
+    </div>
+    <p class="outcomes-title rv r2"><strong>Key Outcomes Participants Experience</strong> <span>— Empowering learning leaders to create lasting organizational impact through data fluency, AI confidence, and responsible innovation.</span></p>
+    <ul class="bullet-list rv r3">
+      <li><span class="bl-dot"></span>Greater confidence in data-informed decision-making</li>
+      <li><span class="bl-dot"></span>Enhanced collaboration across technical and business teams</li>
+      <li><span class="bl-dot"></span>Stronger alignment between leadership, AI, data, and strategy</li>
+      <li><span class="bl-dot"></span>Accelerated progress on AI and digital transformation initiatives</li>
+      <li><span class="bl-dot"></span>Growing culture of continuous learning and innovation</li>
+      <li><span class="bl-dot"></span>Commitment to Responsible AI practices that prioritize transparency, fairness, and human oversight</li>
+    </ul>
+    <div class="insight-card rv">
+      <div class="insight-label">Case Study Insight</div>
+      <p class="insight-quote">"InfoFluence™ helped me reframe what it means to lead, blending data, AI, and human insight to drive smarter, more adaptive decisions."</p>
+      <div class="insight-attr">— Early Program Participant, Global Leadership Pilot</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 11 — TESTIMONIALS
+     Social proof — real voices
+════════════════════════════════════════ -->
+<section class="sec testi-sec" id="testimonials">
+  <div class="w-sm">
+    <span class="eyebrow rv" style="color:var(--teal)">What Early Adopters Are Saying</span>
+    <h2 class="ht rv r1" style="color:#fff">What Early <span class="teal">Adopters Are</span><br><span class="green">Saying</span></h2>
+    <p class="body-t body-white center rv r2">Perspectives from leaders who are redefining how their organizations learn, adapt, and make decisions at the age of AI</p>
+    <div class="testi-cards">
+      <div class="testi-card rv">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div class="quote-mark">❝❞</div>
+        <p class="testi-text">"InfoFluence™ gave our teams a shared way to communicate about data and insights. We became more aligned between business and IT teams, more curious, and far more effective in how we learn together."</p>
+      </div>
+      <div class="testi-card rv r1">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div class="quote-mark">❝❞</div>
+        <p class="testi-text">"The REAL framework reshaped how our leaders approach AI. It strengthened their ability to navigate complexity, ask better questions, and foster learning across the organization."</p>
+      </div>
+      <div class="testi-card rv r2">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div class="quote-mark">❝❞</div>
+        <p class="testi-text">"The 6D Journey methodology provided the structure we needed to become a learning organization. We moved from hesitant and reactive to confident, fluent, and forward-looking. The shift has been transformative."</p>
+      </div>
+      <div class="join-card rv">
+        <h3>Join These Success Stories</h3>
+        <p>Accelerate your evolution into a learning-led organization. Start your InfoFluence™ journey today and see measurable progress within months.</p>
+        <button class="btn-gradient" onclick="openModal()">Start Your Transformation</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 12 — NEWSLETTER
+     Nurture visitors not yet ready to buy
+════════════════════════════════════════ -->
+<section class="news-sec" id="newsletter">
+  <div class="w-sm">
+    <h2 class="rv">Stay Ahead with<br><span class="orange">Infofluence™</span> <span class="teal-g">Data Product<br>Mastery Insights</span></h2>
+    <p class="news-sub rv r1">Get weekly inspiration, research, and practical guidance on becoming a learning leader in data and AI. Join a growing community shaping the next generation of data products and decision intelligence.</p>
+    <button class="btn-gradient rv r2" onclick="openModal()" style="padding:14px 36px;font-size:1rem">Subscribe →</button>
+    <div class="news-features">
+      <div class="rv">
+        <div class="nf-circle">⭐</div>
+        <div class="nf-h">Weekly Insights</div>
+        <p class="nf-p">Fresh perspectives on data products, leadership, and fluency</p>
+      </div>
+      <div class="rv r1">
+        <div class="nf-circle" style="background:linear-gradient(135deg,var(--teal),var(--orange))">🏆</div>
+        <div class="nf-h">Practical Tips</div>
+        <p class="nf-p">Actionable strategies you can apply immediately</p>
+      </div>
+      <div class="rv r2">
+        <div class="nf-circle" style="background:linear-gradient(135deg,var(--green),var(--teal))">👥</div>
+        <div class="nf-h">Community</div>
+        <p class="nf-p">Connect with learning leaders shaping the future of AI</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════ -->
+<footer class="footer-main">
+  <div class="w-sm">
+    <div class="footer-logo-block rv">
+      <a href="#" class="logo logo-white" style="display:inline-flex">
+        <div class="logo-row">
+          <span class="logo-pre">inf</span>
+          <svg class="pw" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10,10 L10,1 A9,9 0,0,1 19,10 Z" fill="#e07535"/>
+            <path d="M10,10 L19,10 A9,9 0,0,1 10,19 Z" fill="#3cb371"/>
+            <path d="M10,10 L10,19 A9,9 0,0,1 1,10 Z" fill="#29b5c3"/>
+            <path d="M10,10 L1,10 A9,9 0,0,1 10,1 Z" fill="#4a90d9"/>
+            <circle cx="10" cy="10" r="3.2" fill="#ffffff"/>
+          </svg>
+          <span class="logo-post">luence</span><span class="logo-tm">™</span>
+        </div>
+        <span class="logo-tag" style="text-align:center">Ignite your data &amp; AI fluency</span>
+      </a>
+    </div>
+    <p class="footer-tagline rv">Ignite your data &amp; AI fluency. Transform how your organization thinks, speaks, acts, and leads with data and AI.</p>
+    <div class="footer-email rv">
+      <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><rect x="1" y="1" width="14" height="12" rx="2" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/><path d="M1 3l7 5 7-5" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/></svg>
+      support@infofluence.ai
+    </div>
+    <div class="footer-nav rv r1">
+      <div><div class="fn-heading">Digital Leadership</div><div class="fn-links"><a href="#">What is Digital Leadership IQ</a><a href="#">Collaborate, Adapt and Succeed with AI</a><a href="#">The REAL Framework</a><a href="#">Benefits</a><a href="#" onclick="openModal();return false">Request Access for Your Team</a></div></div>
+      <div><div class="fn-heading">About</div><div class="fn-links"><a href="#">Our Story &amp; Mission</a><a href="#">FAQ's</a></div></div>
+      <div><div class="fn-heading">Contact</div><div class="fn-links"><a href="#">General Inquiries</a><a href="#">Group License Requests</a><a href="#">Advisors and Coaching Interest</a></div></div>
+      <div><div class="fn-heading">Customers</div><div class="fn-links"><a href="#">Use Cases</a><a href="#">My Digital Leadership IQ</a></div></div>
+    </div>
+    <div class="footer-bottom rv r2">
+      <p class="footer-copy">© 2026 InfoFluence™. All rights reserved.</p>
+      <div class="footer-social"><a href="#">in</a><a href="#">𝕏</a><a href="#">▶</a></div>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a><a href="#">Sign In</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Modal
+function openModal(){document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow=''}
+document.getElementById('mClose').onclick=closeModal;
+document.getElementById('mCancel').onclick=closeModal;
+document.getElementById('modal').onclick=function(e){if(e.target===this)closeModal()};
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
+document.getElementById('mSubmit').onclick=function(){
+  var n=document.getElementById('fN').value.trim(),c=document.getElementById('fC').value.trim(),
+      t=document.getElementById('fT').value.trim(),e=document.getElementById('fE').value.trim(),
+      s=document.getElementById('fS').value,p=document.getElementById('fP').value.trim();
+  if(!n||!c||!t||!e||!s||!p){alert('Please fill in all required fields.');return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){alert('Please enter a valid work email.');return}
+  document.getElementById('mForm').style.display='none';
+  document.getElementById('mOk').style.display='block';
+  setTimeout(closeModal,3000)
+};
+// Progress bar
+window.addEventListener('scroll',function(){
+  var s=document.documentElement.scrollTop,h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  document.getElementById('prog').style.width=(s/h*100)+'%';
+  var btt=document.getElementById('btt');
+  s>400?btt.classList.add('show'):btt.classList.remove('show');
+});
+// Scroll reveal
+var rvs=document.querySelectorAll('.rv');
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}})},{threshold:.1});
+rvs.forEach(function(el){obs.observe(el)});
+document.querySelectorAll('.hero .rv').forEach(function(el){el.classList.add('on')});
+</script>
+</body>
+</html>
